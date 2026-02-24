@@ -14,6 +14,83 @@ export type Database = {
   }
   public: {
     Tables: {
+      mission_completions: {
+        Row: {
+          completed_at: string
+          completion_date: string
+          id: string
+          mission_id: string
+          photo_url: string | null
+          points_earned: number
+          qr_code: string | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          completion_date?: string
+          id?: string
+          mission_id: string
+          photo_url?: string | null
+          points_earned?: number
+          qr_code?: string | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          completion_date?: string
+          id?: string
+          mission_id?: string
+          photo_url?: string | null
+          points_earned?: number
+          qr_code?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mission_completions_mission_id_fkey"
+            columns: ["mission_id"]
+            isOneToOne: false
+            referencedRelation: "missions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      missions: {
+        Row: {
+          active: boolean
+          category: string
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          points: number
+          title: string
+          type: string
+        }
+        Insert: {
+          active?: boolean
+          category: string
+          created_at?: string
+          description: string
+          icon?: string
+          id?: string
+          points?: number
+          title: string
+          type: string
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          points?: number
+          title?: string
+          type?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

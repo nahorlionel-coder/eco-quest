@@ -1,0 +1,111 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
+
+export interface MissionWithStatus {
+  id: string;
+  title: string;
+  description: string;
+  points: number;
+  category: 'energy' | 'waste' | 'commute' | 'food';
+  type: 'check-in' | 'photo' | 'qr';
+  icon: string;
+  completed: boolean;
+}
+
+export function useMissions() {
+  const { user } = useAuth();
+  const [missions, setMissions] = useState<MissionWithStatus[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchMissions = async () => {
+    const { data: missionsData } = await supabase
+      .from('missions')
+      .select('*')
+      .eq('active', true);
+
+    if (!missionsData) { setLoading(false); return; }
+
+    let completedIds: string[] = [];
+    if (user) {
+      const today = new Date().toISOString().split('T')[0];
+      const { data: completions } = await supabase
+        .from('mission_completions')
+        .select('mission_id')
+        .eq('user_id', user.id)
+        .eq('completion_date', today);
+      completedIds = (completions || []).map(c => c.mission_id);
+    }
+
+    setMissions(missionsData.map(m => ({
+      id: m.id,
+      title: m.title,
+      description: m.description,
+      points: m.points,
+      category: m.category as MissionWithStatus['category'],
+      type: m.type as MissionWithStatus['type'],
+      icon: m.icon,
+      completed: completedIds.includes(m.id),
+    })));
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchMissions(); }, [user]);
+
+  const completeMission = async (missionId: string, options?: { photoFile?: File; qrCode?: string }) => {
+    if (!user) {
+      toast.error('Silakan login terlebih dahulu');
+      return false;
+    }
+
+    const mission = missions.find(m => m.id === missionId);
+    if (!mission || mission.completed) return false;
+
+    let photoUrl: string | null = null;
+
+    // Upload photo if provided
+    if (options?.photoFile) {
+      const ext = options.photoFile.name.split('.').pop();
+      const path = `${user.id}/${missionId}-${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage
+        .from('mission-photos')
+        .upload(path, options.photoFile);
+
+      if (uploadError) {
+        toast.error('Gagal mengupload foto');
+        return false;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('mission-photos')
+        .getPublicUrl(path);
+      photoUrl = urlData.publicUrl;
+    }
+
+    const { error } = await supabase
+      .from('mission_completions')
+      .insert({
+        user_id: user.id,
+        mission_id: missionId,
+        points_earned: mission.points,
+        photo_url: photoUrl,
+        qr_code: options?.qrCode || null,
+      });
+
+    if (error) {
+      if (error.code === '23505') {
+        toast.error('Misi ini sudah diselesaikan hari ini');
+      } else {
+        toast.error('Gagal menyelesaikan misi');
+      }
+      return false;
+    }
+
+    toast.success(`+${mission.points} poin! 🎉 ${mission.title} selesai!`);
+    setMissions(prev => prev.map(m => m.id === missionId ? { ...m, completed: true } : m));
+    return true;
+  };
+
+  return { missions, loading, completeMission, refetch: fetchMissions };
+}

@@ -128,6 +128,14 @@ export function Marketplace() {
       return;
     }
 
+    // Record redemption history
+    await supabase.from('reward_redemptions').insert({
+      user_id: user.id,
+      reward_id: reward.id,
+      reward_title: reward.title,
+      points_spent: reward.pointsCost,
+    });
+
     setUserPoints(prev => prev - reward.pointsCost);
     setRedeemedItems(prev => [...prev, id]);
     setShowSuccess(reward);

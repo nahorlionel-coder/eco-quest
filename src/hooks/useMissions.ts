@@ -12,6 +12,10 @@ export interface MissionWithStatus {
   type: 'check-in' | 'photo' | 'qr';
   icon: string;
   completed: boolean;
+  is_sponsored: boolean;
+  sponsor_name: string | null;
+  redirect_url: string | null;
+  sort_order: number;
 }
 
 export function useMissions() {
@@ -38,7 +42,7 @@ export function useMissions() {
       completedIds = (completions || []).map(c => c.mission_id);
     }
 
-    setMissions(missionsData.map(m => ({
+    const mapped = missionsData.map(m => ({
       id: m.id,
       title: m.title,
       description: m.description,
@@ -47,7 +51,13 @@ export function useMissions() {
       type: m.type as MissionWithStatus['type'],
       icon: m.icon,
       completed: completedIds.includes(m.id),
-    })));
+      is_sponsored: (m as any).is_sponsored ?? false,
+      sponsor_name: (m as any).sponsor_name ?? null,
+      redirect_url: (m as any).redirect_url ?? null,
+      sort_order: (m as any).sort_order ?? 0,
+    }));
+    mapped.sort((a, b) => a.sort_order - b.sort_order);
+    setMissions(mapped);
     setLoading(false);
   };
 

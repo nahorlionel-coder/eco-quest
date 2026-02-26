@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Camera, QrCode, Zap, Recycle, Bike, Salad, Sparkles, Upload, Loader2 } from 'lucide-react';
+import { Check, Camera, QrCode, Zap, Recycle, Bike, Salad, Sparkles, Upload, Loader2, ExternalLink, Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -55,14 +55,24 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
     if (file) handleClaim(file);
   };
 
+  const isSponsored = mission.is_sponsored;
+
   return (
     <motion.div layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9 }} whileHover={{ scale: mission.completed ? 1 : 1.02 }}
       className="relative"
     >
       <Card variant={mission.completed ? 'glass' : 'mission'}
-        className={`overflow-hidden ${mission.completed ? 'opacity-60' : ''}`}
+        className={`overflow-hidden ${mission.completed ? 'opacity-60' : ''} ${isSponsored ? 'ring-2 ring-amber-400/60 shadow-lg shadow-amber-400/10' : ''}`}
       >
+        {isSponsored && (
+          <div className="absolute top-0 right-0 z-20">
+            <div className="bg-gradient-to-l from-amber-500 to-amber-400 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg flex items-center gap-1">
+              <Star className="w-3 h-3 fill-white" />
+              SPONSORED
+            </div>
+          </div>
+        )}
         {isClaimingAnimation && (
           <motion.div initial={{ scale: 0, opacity: 1 }} animate={{ scale: 20, opacity: 0 }}
             transition={{ duration: 0.6 }}
@@ -72,14 +82,14 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
         )}
         <CardContent className="p-4">
           <div className="flex items-start gap-4">
-            <motion.div className={`p-3 rounded-xl ${category.bg} shrink-0`}
+            <motion.div className={`p-3 rounded-xl ${isSponsored ? 'bg-amber-100 dark:bg-amber-900/30' : category.bg} shrink-0`}
               animate={mission.completed ? {} : { scale: [1, 1.05, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <span className="text-2xl">{mission.icon}</span>
             </motion.div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <h3 className="font-bold font-display truncate">{mission.title}</h3>
                 <Badge variant={mission.category} className="shrink-0">
                   <TypeIcon className="w-3 h-3 mr-1" />
@@ -87,6 +97,11 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground line-clamp-2">{mission.description}</p>
+              {isSponsored && mission.sponsor_name && (
+                <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 mt-1">
+                  🤝 {mission.sponsor_name}
+                </p>
+              )}
             </div>
             <div className="flex flex-col items-end gap-2 shrink-0">
               <Badge variant="points" className="font-bold">+{mission.points}</Badge>
@@ -97,6 +112,14 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
                   <Check className="w-5 h-5" />
                   <span className="text-sm font-semibold">Selesai</span>
                 </motion.div>
+              ) : mission.redirect_url ? (
+                <Button size="sm" variant="default"
+                  className="gap-1 bg-amber-500 hover:bg-amber-600 text-white"
+                  onClick={() => window.open(mission.redirect_url!, '_blank')}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Buka
+                </Button>
               ) : mission.type === 'photo' ? (
                 <>
                   <input ref={fileInputRef} type="file" accept="image/*" capture="environment"

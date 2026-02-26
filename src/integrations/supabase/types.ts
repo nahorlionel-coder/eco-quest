@@ -130,6 +130,33 @@ export type Database = {
         }
         Relationships: []
       }
+      reward_redemptions: {
+        Row: {
+          id: string
+          points_spent: number
+          redeemed_at: string
+          reward_id: string
+          reward_title: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          points_spent?: number
+          redeemed_at?: string
+          reward_id: string
+          reward_title: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          points_spent?: number
+          redeemed_at?: string
+          reward_id?: string
+          reward_title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

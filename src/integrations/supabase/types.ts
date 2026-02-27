@@ -14,6 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
+      department_challenge_contributions: {
+        Row: {
+          challenge_id: string
+          contributed_at: string
+          department: string
+          id: string
+          points_contributed: number
+          user_id: string
+        }
+        Insert: {
+          challenge_id: string
+          contributed_at?: string
+          department: string
+          id?: string
+          points_contributed?: number
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string
+          contributed_at?: string
+          department?: string
+          id?: string
+          points_contributed?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "department_challenge_contributions_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "department_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      department_challenges: {
+        Row: {
+          created_at: string
+          description: string
+          end_date: string
+          icon: string
+          id: string
+          reward_description: string | null
+          start_date: string
+          status: string
+          target_points: number
+          team_a: string
+          team_a_points: number
+          team_b: string
+          team_b_points: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          end_date: string
+          icon?: string
+          id?: string
+          reward_description?: string | null
+          start_date?: string
+          status?: string
+          target_points?: number
+          team_a: string
+          team_a_points?: number
+          team_b: string
+          team_b_points?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          end_date?: string
+          icon?: string
+          id?: string
+          reward_description?: string | null
+          start_date?: string
+          status?: string
+          target_points?: number
+          team_a?: string
+          team_a_points?: number
+          team_b?: string
+          team_b_points?: number
+          title?: string
+        }
+        Relationships: []
+      }
       mission_completions: {
         Row: {
           completed_at: string

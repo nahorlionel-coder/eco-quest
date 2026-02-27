@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Target, Trophy, QrCode, Gift, Menu, X, Leaf, UserCircle, LogIn } from 'lucide-react';
+import { Home, Target, Trophy, QrCode, Gift, Menu, X, Leaf, UserCircle, LogIn, Swords } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -15,6 +15,7 @@ interface NavigationProps {
 const navItems = [
   { id: 'dashboard', label: 'Beranda', icon: Home },
   { id: 'missions', label: 'Misi', icon: Target },
+  { id: 'challenges', label: 'Battle', icon: Swords },
   { id: 'leaderboard', label: 'Ranking', icon: Trophy },
   { id: 'scanner', label: 'Scan', icon: QrCode },
   { id: 'marketplace', label: 'Hadiah', icon: Gift },

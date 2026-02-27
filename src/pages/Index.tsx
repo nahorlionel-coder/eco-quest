@@ -6,6 +6,7 @@ import { DailyMissions } from '@/components/DailyMissions';
 import { Leaderboard } from '@/components/Leaderboard';
 import { QRScanner } from '@/components/QRScanner';
 import { Marketplace } from '@/components/Marketplace';
+import { DepartmentChallenges } from '@/components/DepartmentChallenges';
 import { OnboardingGuide, useOnboarding } from '@/components/OnboardingGuide';
 import ecoPattern from '@/assets/eco-pattern.png';
 
@@ -25,6 +26,8 @@ const Index = () => {
         return <StatsOverview />;
       case 'missions':
         return <DailyMissions />;
+      case 'challenges':
+        return <DepartmentChallenges />;
       case 'leaderboard':
         return <Leaderboard />;
       case 'scanner':

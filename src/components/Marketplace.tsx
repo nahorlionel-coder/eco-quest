@@ -35,9 +35,19 @@ function RewardCard({ reward, userPoints, onRedeem }: RewardCardProps) {
     >
       <Card
         variant={!reward.available ? 'glass' : canAfford ? 'interactive' : 'glass'}
-        className={`h-full overflow-hidden ${!reward.available || !canAfford ? 'opacity-60' : ''}`}
+        className={`h-full overflow-hidden ${!reward.available || !canAfford ? 'opacity-60' : ''} ${reward.isSponsored ? 'ring-1 ring-amber-500/30' : ''}`}
       >
         <CardContent className="p-4 flex flex-col h-full">
+          {/* Sponsored badge */}
+          {reward.isSponsored && (
+            <div className="flex items-center gap-1 mb-2 -mt-1">
+              <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[10px] px-1.5 py-0">
+                ⭐ SPONSORED
+              </Badge>
+              <span className="text-[10px] text-muted-foreground truncate">{reward.sponsorName}</span>
+            </div>
+          )}
+
           <div className="relative mb-4">
             <motion.div
               className="text-6xl text-center py-6 rounded-xl bg-gradient-to-br from-muted to-muted/50"

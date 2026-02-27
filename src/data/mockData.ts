@@ -29,6 +29,8 @@ export interface Reward {
   image: string;
   category: string;
   available: boolean;
+  isSponsored?: boolean;
+  sponsorName?: string;
 }
 
 export interface LeaderboardEntry {
@@ -187,6 +189,50 @@ export const rewards: Reward[] = [
     image: '🎉',
     category: 'Time Off',
     available: true,
+  },
+  {
+    id: '8',
+    title: 'Voucher Starbucks 50K',
+    description: 'Voucher digital Starbucks senilai Rp50.000 — sponsored by Starbucks Indonesia',
+    pointsCost: 150,
+    image: '☕',
+    category: 'Food & Drink',
+    available: true,
+    isSponsored: true,
+    sponsorName: 'Starbucks Indonesia',
+  },
+  {
+    id: '9',
+    title: 'Botol Minum Aqua Life',
+    description: 'Botol minum daur ulang eksklusif dari Aqua — sponsored by Danone-Aqua',
+    pointsCost: 100,
+    image: '💧',
+    category: 'Merchandise',
+    available: true,
+    isSponsored: true,
+    sponsorName: 'Danone-Aqua',
+  },
+  {
+    id: '10',
+    title: 'Diskon 20% Sepatu Adidas',
+    description: 'Voucher diskon 20% untuk koleksi sustainable di Adidas.co.id',
+    pointsCost: 400,
+    image: '👟',
+    category: 'Merchandise',
+    available: true,
+    isSponsored: true,
+    sponsorName: 'Adidas Indonesia',
+  },
+  {
+    id: '11',
+    title: 'Donasi Mangrove 5 Pohon',
+    description: 'Tanam 5 pohon mangrove melalui program LindungiHutan — sponsored by Tokopedia',
+    pointsCost: 200,
+    image: '🌊',
+    category: 'Charity',
+    available: true,
+    isSponsored: true,
+    sponsorName: 'Tokopedia',
   },
 ];
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, ChevronLeft, Leaf, Target, QrCode, Gift, Trophy } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, Leaf, Target, QrCode, Gift, Trophy, Swords } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -27,11 +27,18 @@ const steps = [
     tip: 'Gunakan tab Scanner untuk memindai QR Code',
   },
   {
+    icon: Swords,
+    emoji: '⚔️',
+    title: 'Battle Antar Divisi',
+    description: 'Gabung tantangan Head-to-Head melawan divisi lain! Kumpulkan poin bersama timmu untuk memenangkan hadiah kolektif.',
+    tip: 'Buka tab Battle untuk lihat tantangan aktif!',
+  },
+  {
     icon: Gift,
     emoji: '🎁',
     title: 'Tukar Poin di Marketplace',
-    description: 'Kumpulkan poin dari misi dan tukar dengan hadiah: mulai dari biji tanaman, voucher kopi, hingga jam pulang lebih awal!',
-    tip: 'Hadiah termurah mulai dari 50 poin saja!',
+    description: 'Kumpulkan poin dari misi dan tukar dengan hadiah dari sponsor seperti Starbucks, Adidas, dan lainnya!',
+    tip: 'Ada hadiah sponsor eksklusif dengan harga spesial! ⭐',
   },
   {
     icon: Trophy,

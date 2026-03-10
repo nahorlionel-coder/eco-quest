@@ -7,6 +7,8 @@ import { Leaderboard } from '@/components/Leaderboard';
 import { QRScanner } from '@/components/QRScanner';
 import { Marketplace } from '@/components/Marketplace';
 import { DepartmentChallenges } from '@/components/DepartmentChallenges';
+import { ImpactDashboard } from '@/components/ImpactDashboard';
+import { CarbonCalculator } from '@/components/CarbonCalculator';
 import { OnboardingGuide, useOnboarding } from '@/components/OnboardingGuide';
 import ecoPattern from '@/assets/eco-pattern.png';
 

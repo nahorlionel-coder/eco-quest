@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { BarChart3, Calculator, ArrowRight } from 'lucide-react';
 import { Navigation, Header } from '@/components/Navigation';
 import { StatsOverview } from '@/components/StatsOverview';
 import { DailyMissions } from '@/components/DailyMissions';
@@ -45,6 +46,8 @@ const Index = () => {
     }
   };
 
+  const showFeatureBanner = !['impact', 'carbon'].includes(activeTab);
+
   return (
     <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
       {/* Onboarding Guide */}
@@ -73,6 +76,61 @@ const Index = () => {
       {/* Main Content */}
       <div className="lg:pl-20">
         <Header />
+
+        {/* Feature Banner - Impact & Carbon */}
+        {showFeatureBanner && (
+          <div className="container mx-auto px-4 pt-4">
+            <div className="max-w-2xl mx-auto grid grid-cols-2 gap-3">
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setActiveTab('impact')}
+                className="relative group overflow-hidden rounded-2xl p-4 text-left border border-primary/20 bg-gradient-to-br from-primary/15 via-card/80 to-food/10 backdrop-blur-xl shadow-glow-sm hover:shadow-glow-md transition-all duration-300"
+              >
+                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors" />
+                <div className="relative">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="p-2 rounded-xl bg-primary/20">
+                      <BarChart3 className="w-5 h-5 text-primary" />
+                    </div>
+                    <span className="text-lg">🌍</span>
+                  </div>
+                  <h3 className="font-bold font-display text-sm">Impact Dashboard</h3>
+                  <p className="text-[11px] text-muted-foreground mt-1 leading-tight">Lihat dampak nyatamu untuk bumi</p>
+                  <div className="flex items-center gap-1 mt-2 text-[11px] text-primary font-semibold">
+                    Lihat <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </motion.button>
+
+              <motion.button
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setActiveTab('carbon')}
+                className="relative group overflow-hidden rounded-2xl p-4 text-left border border-accent/20 bg-gradient-to-br from-accent/15 via-card/80 to-energy/10 backdrop-blur-xl shadow-glow-sm hover:shadow-glow-md transition-all duration-300"
+              >
+                <div className="absolute top-0 right-0 w-20 h-20 bg-accent/10 rounded-full blur-2xl group-hover:bg-accent/20 transition-colors" />
+                <div className="relative">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="p-2 rounded-xl bg-accent/20">
+                      <Calculator className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-lg">🧮</span>
+                  </div>
+                  <h3 className="font-bold font-display text-sm">Carbon Calculator</h3>
+                  <p className="text-[11px] text-muted-foreground mt-1 leading-tight">Hitung jejak karbonmu sekarang</p>
+                  <div className="flex items-center gap-1 mt-2 text-[11px] text-accent font-semibold">
+                    Hitung <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </motion.button>
+            </div>
+          </div>
+        )}
         
         <main className="container mx-auto px-4 py-6 pb-24 lg:pb-6">
           <AnimatePresence mode="wait">

@@ -126,31 +126,34 @@ export function Header() {
             </div>
           </div>
 
-          {user ? (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/profile')}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
-            >
-              <Avatar className="w-8 h-8">
-                {user.user_metadata?.avatar_url ? (
-                  <AvatarImage src={user.user_metadata.avatar_url} />
-                ) : null}
-                <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
-                  {(user.user_metadata?.full_name || user.email)?.[0]?.toUpperCase() || '?'}
-                </AvatarFallback>
-              </Avatar>
-              <span className="text-sm font-medium hidden sm:inline">
-                {user.user_metadata?.full_name || user.email?.split('@')[0]}
-              </span>
-            </motion.button>
-          ) : (
-            <Button variant="glow" size="sm" onClick={() => navigate('/auth')}>
-              <LogIn className="w-4 h-4 mr-2" />
-              Masuk
-            </Button>
-          )}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            {user ? (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/profile')}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+              >
+                <Avatar className="w-8 h-8">
+                  {user.user_metadata?.avatar_url ? (
+                    <AvatarImage src={user.user_metadata.avatar_url} />
+                  ) : null}
+                  <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
+                    {(user.user_metadata?.full_name || user.email)?.[0]?.toUpperCase() || '?'}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-sm font-medium hidden sm:inline">
+                  {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                </span>
+              </motion.button>
+            ) : (
+              <Button variant="glow" size="sm" onClick={() => navigate('/auth')}>
+                <LogIn className="w-4 h-4 mr-2" />
+                Masuk
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </motion.header>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Target, Trophy, QrCode, Gift, Menu, X, Leaf, UserCircle, LogIn, Swords } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -28,7 +29,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
       <motion.aside
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        className="hidden lg:flex fixed left-0 top-0 h-full w-20 flex-col items-center py-8 bg-card/50 backdrop-blur-xl border-r border-white/10 z-50"
+        className="hidden lg:flex fixed left-0 top-0 h-full w-20 flex-col items-center py-8 bg-card/50 backdrop-blur-xl border-r border-border z-50"
       >
         {/* Logo */}
         <motion.div
@@ -66,7 +67,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
       <motion.nav
         initial={{ y: 100 }}
         animate={{ y: 0 }}
-        className="lg:hidden fixed bottom-0 left-0 right-0 bg-card/80 backdrop-blur-xl border-t border-white/10 z-50 safe-area-inset-bottom"
+        className="lg:hidden fixed bottom-0 left-0 right-0 bg-card/80 backdrop-blur-xl border-t border-border z-50 safe-area-inset-bottom"
       >
         <div className="flex items-center justify-around px-2 py-2">
           {navItems.map((item) => (
@@ -107,7 +108,7 @@ export function Header() {
     <motion.header
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-white/10"
+      className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border"
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
@@ -125,31 +126,34 @@ export function Header() {
             </div>
           </div>
 
-          {user ? (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/profile')}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
-            >
-              <Avatar className="w-8 h-8">
-                {user.user_metadata?.avatar_url ? (
-                  <AvatarImage src={user.user_metadata.avatar_url} />
-                ) : null}
-                <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
-                  {(user.user_metadata?.full_name || user.email)?.[0]?.toUpperCase() || '?'}
-                </AvatarFallback>
-              </Avatar>
-              <span className="text-sm font-medium hidden sm:inline">
-                {user.user_metadata?.full_name || user.email?.split('@')[0]}
-              </span>
-            </motion.button>
-          ) : (
-            <Button variant="glow" size="sm" onClick={() => navigate('/auth')}>
-              <LogIn className="w-4 h-4 mr-2" />
-              Masuk
-            </Button>
-          )}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            {user ? (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/profile')}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+              >
+                <Avatar className="w-8 h-8">
+                  {user.user_metadata?.avatar_url ? (
+                    <AvatarImage src={user.user_metadata.avatar_url} />
+                  ) : null}
+                  <AvatarFallback className="bg-primary/20 text-primary text-xs font-bold">
+                    {(user.user_metadata?.full_name || user.email)?.[0]?.toUpperCase() || '?'}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-sm font-medium hidden sm:inline">
+                  {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                </span>
+              </motion.button>
+            ) : (
+              <Button variant="glow" size="sm" onClick={() => navigate('/auth')}>
+                <LogIn className="w-4 h-4 mr-2" />
+                Masuk
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </motion.header>

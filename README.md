@@ -1,73 +1,101 @@
-# Welcome to your Lovable project
+# 🌱 EcoQuest — Gamifikasi Peduli Lingkungan Kantor
 
-## Project info
+<p align="center">
+  <strong>Aplikasi gamifikasi untuk mendorong perilaku ramah lingkungan di lingkungan kantor.</strong><br/>
+  Kumpulkan poin dengan aksi hijau dan tukar dengan hadiah menarik!
+</p>
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## ✨ Fitur Utama
 
-There are several ways of editing your application.
+| Fitur | Deskripsi |
+|-------|-----------|
+| 🏠 **Dashboard** | Ringkasan statistik poin, streak, dan level pengguna |
+| 🎯 **Misi Harian** | Misi eco-friendly yang bisa diselesaikan setiap hari |
+| ⚔️ **Department Challenges** | Kompetisi antar departemen untuk aksi lingkungan |
+| 🏆 **Leaderboard** | Papan peringkat pengguna berdasarkan poin |
+| 📷 **QR Scanner** | Scan QR code untuk verifikasi misi |
+| 🎁 **Marketplace** | Tukar poin dengan hadiah menarik |
+| 🌍 **Impact Dashboard** | Visualisasi dampak nyata: CO₂ dihemat, pohon ditanam, plastik dikurangi |
+| 🧮 **Carbon Calculator** | Kalkulator jejak karbon pribadi dengan tips pengurangan |
+| 🌗 **Light/Dark Mode** | Tema terang dan gelap dengan animasi transisi smooth |
+| 🔐 **Authentication** | Login dan registrasi pengguna |
 
-**Use Lovable**
+## 🛠️ Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **Frontend:** React 18 + TypeScript + Vite
+- **Styling:** Tailwind CSS + shadcn/ui
+- **Animation:** Framer Motion
+- **Charts:** Recharts
+- **Backend:** Lovable Cloud (Database, Auth, Edge Functions, Storage)
+- **State Management:** TanStack React Query
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Menjalankan di Lokal
 
-**Use your preferred IDE**
+### Prasyarat
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Node.js** v18 atau lebih baru — [install via nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **npm** atau **bun**
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Langkah-langkah
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+```bash
+# 1. Clone repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
+# 2. Masuk ke folder project
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Jalankan development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Aplikasi akan berjalan di `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Build untuk Production
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+npm run preview
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📁 Struktur Project
 
-## What technologies are used for this project?
+```
+src/
+├── assets/            # Gambar dan asset statis
+├── components/        # Komponen React
+│   ├── ui/            # shadcn/ui components
+│   ├── Navigation.tsx # Navigasi utama + Header
+│   ├── ThemeToggle.tsx # Toggle light/dark mode
+│   ├── StatsOverview.tsx
+│   ├── DailyMissions.tsx
+│   ├── DepartmentChallenges.tsx
+│   ├── Leaderboard.tsx
+│   ├── QRScanner.tsx
+│   ├── Marketplace.tsx
+│   ├── ImpactDashboard.tsx
+│   ├── CarbonCalculator.tsx
+│   └── OnboardingGuide.tsx
+├── contexts/          # React Context (Auth)
+├── data/              # Mock data
+├── hooks/             # Custom hooks (useTheme, useMissions, dll.)
+├── integrations/      # Konfigurasi backend
+├── pages/             # Halaman (Index, Auth, Profile)
+└── lib/               # Utility functions
+```
 
-This project is built with:
+## 🎨 Design System
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Dark Mode First** dengan dukungan Light Mode
+- **Warna Utama:** Teal (Primary), Lime (Secondary), Coral (Accent)
+- **Tipografi:** Space Grotesk (heading) + Inter (body)
+- **Efek:** Glassmorphism, glow shadows, smooth transitions
 
-## How can I deploy this project?
+## 📝 Lisensi
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Project ini dibuat dengan [Lovable](https://lovable.dev).

@@ -148,6 +148,24 @@
     @apply border-border;
   }
 
+  html {
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, box-shadow, color, fill, stroke;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+  }
+
+  /* Exclude elements that need instant transitions */
+  button *, input, textarea, select,
+  [class*="animate-"], [class*="motion-"] {
+    transition-property: none;
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;

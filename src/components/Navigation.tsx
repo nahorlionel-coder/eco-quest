@@ -67,7 +67,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
       <motion.nav
         initial={{ y: 100 }}
         animate={{ y: 0 }}
-        className="lg:hidden fixed bottom-0 left-0 right-0 bg-card/80 backdrop-blur-xl border-t border-white/10 z-50 safe-area-inset-bottom"
+        className="lg:hidden fixed bottom-0 left-0 right-0 bg-card/80 backdrop-blur-xl border-t border-border z-50 safe-area-inset-bottom"
       >
         <div className="flex items-center justify-around px-2 py-2">
           {navItems.map((item) => (

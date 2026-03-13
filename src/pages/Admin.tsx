@@ -275,6 +275,7 @@ export default function Admin() {
   const navigate = useNavigate();
   const [tab, setTab] = useState('missions');
   const [search, setSearch] = useState('');
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   // Data states
   const [missions, setMissions] = useState<Mission[]>([]);
@@ -293,6 +294,21 @@ export default function Admin() {
   const [editProfile, setEditProfile] = useState<Profile | undefined>();
   const [showProfileDialog, setShowProfileDialog] = useState(false);
 
+  // Check admin role
+  useEffect(() => {
+    const checkAdmin = async () => {
+      if (!user) { setIsAdmin(false); return; }
+      const { data } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+      setIsAdmin(!!data);
+    };
+    if (!authLoading) checkAdmin();
+  }, [user, authLoading]);
+
   const fetchAll = async () => {
     setLoading(true);
     const [m, c, r, p] = await Promise.all([
@@ -308,10 +324,18 @@ export default function Admin() {
     setLoading(false);
   };
 
-  useEffect(() => { if (!authLoading) fetchAll(); }, [authLoading]);
+  useEffect(() => { if (isAdmin) fetchAll(); }, [isAdmin]);
 
-  if (authLoading) return <div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading...</div>;
+  if (authLoading || isAdmin === null) return <div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading...</div>;
   if (!user) { navigate('/auth'); return null; }
+  if (!isAdmin) return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center px-4">
+      <div className="text-6xl">🔒</div>
+      <h1 className="text-2xl font-bold font-display">Akses Ditolak</h1>
+      <p className="text-muted-foreground">Anda tidak memiliki izin admin untuk mengakses halaman ini.</p>
+      <Button onClick={() => navigate('/')}>Kembali ke Beranda</Button>
+    </div>
+  );
 
   const filtered = <T extends { title?: string; display_name?: string | null }>(arr: T[]) =>
     arr.filter(item => {

@@ -255,6 +255,45 @@ export type Database = {
         }
         Relationships: []
       }
+      rewards: {
+        Row: {
+          available: boolean
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image: string
+          is_sponsored: boolean
+          points_cost: number
+          sponsor_name: string | null
+          title: string
+        }
+        Insert: {
+          available?: boolean
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image?: string
+          is_sponsored?: boolean
+          points_cost?: number
+          sponsor_name?: string | null
+          title: string
+        }
+        Update: {
+          available?: boolean
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image?: string
+          is_sponsored?: boolean
+          points_cost?: number
+          sponsor_name?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

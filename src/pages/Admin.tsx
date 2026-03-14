@@ -17,8 +17,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import {
   LayoutDashboard, Target, Swords, Gift, Users,
-  Plus, Pencil, Trash2, ArrowLeft, Search, RefreshCw
+  Plus, Pencil, Trash2, ArrowLeft, Search, RefreshCw, Camera
 } from 'lucide-react';
+import { PhotoVerification } from '@/components/admin/PhotoVerification';
 
 // ─── Types ───
 interface Mission {
@@ -383,8 +384,9 @@ export default function Admin() {
 
       <main className="max-w-6xl mx-auto px-4 py-6">
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="grid grid-cols-4 w-full max-w-lg mb-6">
+          <TabsList className="grid grid-cols-5 w-full max-w-2xl mb-6">
             <TabsTrigger value="missions" className="gap-1"><Target className="w-4 h-4" />Misi</TabsTrigger>
+            <TabsTrigger value="verification" className="gap-1"><Camera className="w-4 h-4" />Verifikasi</TabsTrigger>
             <TabsTrigger value="battles" className="gap-1"><Swords className="w-4 h-4" />Battle</TabsTrigger>
             <TabsTrigger value="rewards" className="gap-1"><Gift className="w-4 h-4" />Hadiah</TabsTrigger>
             <TabsTrigger value="users" className="gap-1"><Users className="w-4 h-4" />Peserta</TabsTrigger>
@@ -444,6 +446,11 @@ export default function Admin() {
                 </Table>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* ═══ Verification Tab ═══ */}
+          <TabsContent value="verification">
+            <PhotoVerification onRefresh={fetchAll} />
           </TabsContent>
 
           {/* ═══ Battles Tab ═══ */}

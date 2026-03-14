@@ -102,6 +102,8 @@ export type Database = {
       }
       mission_completions: {
         Row: {
+          ai_confidence: number | null
+          ai_result: string | null
           completed_at: string
           completion_date: string
           id: string
@@ -109,9 +111,14 @@ export type Database = {
           photo_url: string | null
           points_earned: number
           qr_code: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
           user_id: string
         }
         Insert: {
+          ai_confidence?: number | null
+          ai_result?: string | null
           completed_at?: string
           completion_date?: string
           id?: string
@@ -119,9 +126,14 @@ export type Database = {
           photo_url?: string | null
           points_earned?: number
           qr_code?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
           user_id: string
         }
         Update: {
+          ai_confidence?: number | null
+          ai_result?: string | null
           completed_at?: string
           completion_date?: string
           id?: string
@@ -129,6 +141,9 @@ export type Database = {
           photo_url?: string | null
           points_earned?: number
           qr_code?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
           user_id?: string
         }
         Relationships: [

@@ -34,7 +34,7 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClaim = async (file?: File) => {
-    if (mission.completed || claiming) return;
+    if (mission.completed || mission.pending || claiming) return;
     setClaiming(true);
     setIsClaimingAnimation(true);
     
@@ -62,8 +62,8 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
       exit={{ opacity: 0, scale: 0.9 }} whileHover={{ scale: mission.completed ? 1 : 1.02 }}
       className="relative"
     >
-      <Card variant={mission.completed ? 'glass' : 'mission'}
-        className={`overflow-hidden ${mission.completed ? 'opacity-60' : ''} ${isSponsored ? 'ring-2 ring-amber-400/60 shadow-lg shadow-amber-400/10' : ''}`}
+      <Card variant={mission.completed ? 'glass' : mission.pending ? 'glass' : 'mission'}
+        className={`overflow-hidden ${mission.completed || mission.pending ? 'opacity-60' : ''} ${isSponsored ? 'ring-2 ring-amber-400/60 shadow-lg shadow-amber-400/10' : ''}`}
       >
         {isSponsored && (
           <div className="absolute top-0 right-0 z-20">
@@ -111,6 +111,13 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
                 >
                   <Check className="w-5 h-5" />
                   <span className="text-sm font-semibold">Selesai</span>
+                </motion.div>
+              ) : mission.pending ? (
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
+                  className="flex items-center gap-1 text-amber-500"
+                >
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span className="text-sm font-semibold">Pending</span>
                 </motion.div>
               ) : mission.redirect_url ? (
                 <Button size="sm" variant="default"

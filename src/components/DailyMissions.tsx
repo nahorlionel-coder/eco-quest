@@ -62,8 +62,8 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
       exit={{ opacity: 0, scale: 0.9 }} whileHover={{ scale: mission.completed ? 1 : 1.02 }}
       className="relative"
     >
-      <Card variant={mission.completed ? 'glass' : 'mission'}
-        className={`overflow-hidden ${mission.completed ? 'opacity-60' : ''} ${isSponsored ? 'ring-2 ring-amber-400/60 shadow-lg shadow-amber-400/10' : ''}`}
+      <Card variant={mission.completed ? 'glass' : mission.pending ? 'glass' : 'mission'}
+        className={`overflow-hidden ${mission.completed || mission.pending ? 'opacity-60' : ''} ${isSponsored ? 'ring-2 ring-amber-400/60 shadow-lg shadow-amber-400/10' : ''}`}
       >
         {isSponsored && (
           <div className="absolute top-0 right-0 z-20">

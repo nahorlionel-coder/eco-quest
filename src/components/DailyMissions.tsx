@@ -112,6 +112,13 @@ function MissionCard({ mission, onClaim }: MissionCardProps) {
                   <Check className="w-5 h-5" />
                   <span className="text-sm font-semibold">Selesai</span>
                 </motion.div>
+              ) : mission.pending ? (
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
+                  className="flex items-center gap-1 text-amber-500"
+                >
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span className="text-sm font-semibold">Pending</span>
+                </motion.div>
               ) : mission.redirect_url ? (
                 <Button size="sm" variant="default"
                   className="gap-1 bg-amber-500 hover:bg-amber-600 text-white"

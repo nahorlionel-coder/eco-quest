@@ -24,24 +24,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Demo mode - create mock user for testing
+    const mockUser = {
+      id: 'demo-user-123',
+      email: 'demo@ecoquest.com',
+      user_metadata: {
+        full_name: 'Lionel Demo',
+        display_name: 'Lionel'
+      }
+    } as User;
+
+    const mockSession = {
+      user: mockUser,
+      access_token: 'demo-token'
+    } as Session;
+
+    // Set mock user after short delay to simulate loading
+    setTimeout(() => {
+      setUser(mockUser);
+      setSession(mockSession);
+      setLoading(false);
+    }, 1000);
+
+    // Keep original Supabase auth as fallback
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
+        if (session) {
+          setSession(session);
+          setUser(session?.user ?? null);
+          setLoading(false);
+        }
       }
     );
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const signOut = async () => {
+    setUser(null);
+    setSession(null);
     await supabase.auth.signOut();
   };
 

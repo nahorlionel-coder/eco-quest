@@ -76,7 +76,7 @@ const Index = () => {
       <div className="lg:pl-20">
         <Header />
 
-        <main className="container mx-auto px-4 py-6 pb-24 lg:pb-6">
+        <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 pb-20 lg:pb-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -90,8 +90,6 @@ const Index = () => {
               {renderContent()}
             </motion.div>
           </AnimatePresence>
-
-          {/* Feature Banner removed */}
         </main>
       </div>
 

@@ -223,8 +223,8 @@ export function Leaderboard() {
                                     </Badge>
                                   )}
                                 </div>
-                                <p className="text-sm text-muted-foreground font-medium">
-                                  {entry.department || 'Software Engineer'} • {entry.company || 'KG Media'}
+                                <p className="text-xs sm:text-sm text-muted-foreground font-medium">
+                                  {entry.department || 'Software Engineer'} • {(entry.company || 'KG Media').replace('KG Media', 'KG')}
                                 </p>
                                 
                                 {isTopThree && (
@@ -445,7 +445,7 @@ export function Leaderboard() {
                                     </Badge>
                                   )}
                                 </div>
-                                <p className="text-sm text-muted-foreground font-medium mb-1">
+                                <p className="text-xs sm:text-sm text-muted-foreground font-medium mb-1">
                                   {dept.memberCount} members • Avg: {dept.avgPoints} pts
                                 </p>
                                 

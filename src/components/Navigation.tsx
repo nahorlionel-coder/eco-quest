@@ -68,31 +68,31 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
       <motion.nav
         initial={{ y: 100 }}
         animate={{ y: 0 }}
-        className="lg:hidden fixed bottom-0 left-0 right-0 bg-card/80 backdrop-blur-xl border-t border-border z-50 safe-area-inset-bottom"
+        className="lg:hidden fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-xl border-t border-border z-50 pb-safe"
       >
-        <div className="flex items-center justify-around px-2 py-2">
+        <div className="flex items-center justify-around px-1 py-1">
           {navItems.map((item) => (
             <motion.button
               key={item.id}
               whileTap={{ scale: 0.9 }}
               onClick={() => onTabChange(item.id)}
               className={cn(
-                'flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 min-w-[60px]',
+                'flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-lg transition-all duration-300 min-w-[50px] max-w-[60px]',
                 activeTab === item.id
                   ? 'text-primary'
                   : 'text-muted-foreground'
               )}
             >
               <motion.div
-                animate={activeTab === item.id ? { y: -2 } : { y: 0 }}
+                animate={activeTab === item.id ? { y: -1 } : { y: 0 }}
                 className={cn(
-                  'p-2 rounded-xl transition-all duration-300',
+                  'p-1.5 rounded-lg transition-all duration-300',
                   activeTab === item.id && 'bg-primary/20 shadow-glow-sm'
                 )}
               >
-                <item.icon className="w-5 h-5" />
+                <item.icon className="w-4 h-4" />
               </motion.div>
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-[9px] font-medium leading-tight">{item.label}</span>
             </motion.button>
           ))}
         </div>
@@ -134,24 +134,24 @@ export function Header() {
     <motion.header
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border"
+      className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl border-b border-border"
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-3 py-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow-sm"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow-sm"
             >
-              <Leaf className="w-5 h-5 text-primary-foreground" />
+              <Leaf className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
             </motion.div>
             <div>
-              <h1 className="text-xl font-bold font-display gradient-text">EcoQuest</h1>
+              <h1 className="text-lg sm:text-xl font-bold font-display gradient-text">EcoQuest</h1>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <ThemeToggle />
             {user ? (
               <DropdownMenu>
@@ -159,9 +159,9 @@ export function Header() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+                    className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
                   >
-                    <Avatar className="w-8 h-8">
+                    <Avatar className="w-6 h-6 sm:w-8 sm:h-8">
                       {user.user_metadata?.avatar_url ? (
                         <AvatarImage src={user.user_metadata.avatar_url} />
                       ) : null}
@@ -169,7 +169,7 @@ export function Header() {
                         {(user.user_metadata?.full_name || user.email)?.[0]?.toUpperCase() || '?'}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="text-sm font-medium hidden sm:inline">
+                    <span className="text-xs sm:text-sm font-medium hidden sm:inline">
                       {user.user_metadata?.full_name || user.email?.split('@')[0]}
                     </span>
                   </motion.button>

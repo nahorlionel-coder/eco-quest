@@ -42,10 +42,10 @@
 
 ```bash
 # 1. Clone repository
-git clone <YOUR_GIT_URL>
+git clone (repo name)
 
 # 2. Masuk ke folder project
-cd <YOUR_PROJECT_NAME>
+cd (repo name)
 
 # 3. Install dependencies
 npm install
@@ -95,7 +95,3 @@ src/
 - **Warna Utama:** Teal (Primary), Lime (Secondary), Coral (Accent)
 - **Tipografi:** Space Grotesk (heading) + Inter (body)
 - **Efek:** Glassmorphism, glow shadows, smooth transitions
-
-## 📝 Lisensi
-
-Project ini dibuat dengan [Lovable](https://lovable.dev).
